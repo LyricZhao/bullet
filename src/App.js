@@ -18,19 +18,18 @@ function App() {
     setBullet(value);
   };
 
-  const handleSend = () => {
-    if (bullet) {
-        screen.push(<StyledBullet msg={bullet} color="#fff" size="12px"/>)
-    }
-  };
+  const handleKeyDown = (event) => {
+      if (event.key === "Enter" && bullet)
+          screen.push(<StyledBullet msg={bullet} color="#fff" size="12px"/>)
+  }
 
   return (
     <div className="App">
       <div className="screen">
-          <ReactPlayer className="react-player" playing="true" controls="true" loop="true" url="demo2.mp4"/>
+          <ReactPlayer className="react-player" playing="true" controls="true" loop="true" url="demo.mp4"/>
       </div>
       <div className="control" style={{width: "100vw", textAlign: "center"}}>
-        <input value={bullet} onChange={handleChange} style={{width: "100%"}} onKeyDown={handleSend}/>
+        <input value={bullet} onChange={handleChange} style={{width: "100%"}} onKeyDown={handleKeyDown}/>
       </div>
     </div>
   );
