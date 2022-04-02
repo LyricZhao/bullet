@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+
+import BulletScreen  from 'rc-bullets';
+import React, {useEffect, useState} from "react";
+import ReactPlayer from "react-player";
+import StyledBullet from "./bullet";
+
 
 function App() {
+  const [screen, setScreen] = useState(null)
+  const [bullet, setBullet] = useState('')
+  useEffect(() => {
+    let s = new BulletScreen('.screen', {duration: 20})
+    setScreen(s)
+  }, [])
+
+  const handleChange = ({ target: { value } }) => {
+    setBullet(value);
+  };
+
+  const handleSend = () => {
+    if (bullet) {
+        screen.push(<StyledBullet msg={bullet} color="#fff" size="12px"/>)
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="screen">
+          <ReactPlayer className="react-player" playing="true" controls="true" loop="true" url="demo2.mp4"/>
+      </div>
+      <div className="control" style={{width: "100vw", textAlign: "center"}}>
+        <input value={bullet} onChange={handleChange} style={{width: "100%"}} onKeyDown={handleSend}/>
+      </div>
     </div>
   );
 }
